@@ -1,0 +1,6 @@
+mediapipe
+numpy
+opencv_python
+pandas
+tensorflow
+cit-fl-participation
