@@ -15,7 +15,7 @@ from cit_fl_participation.participation import (
 from model.predictor import mlModel
 
 # Functions
-def export_weights_tf(self, model):
+def export_weights_tf(model):
     '''
     Converts the tf-model-weights to an 1D numpy array
     '''
@@ -24,7 +24,7 @@ def export_weights_tf(self, model):
         for w in model.get_weights()
     ])
 
-def import_weights_tf(self, model, weights):
+def import_weights_tf(model, weights):
         '''
         Imports weights into the tf-model from a given 1D numpy array
         '''
@@ -60,21 +60,21 @@ class MyTrainer(AbstractTrainer):
         return (export_weights_tf(self.predictor.model), self.X.shape[0])
     
     def training_finished(self, final_weights):
-        import_weights_tf(self.predictor.model, import_weights)
+        import_weights_tf(self.predictor.model, final_weights)
         print("Final Score")
         round_callback(self.predictor)
 
 #### MAIN ####
 def main():
     # select any token you want
-    api_token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    api_token = "participant-1"
 
     # Fedml data storage
     storageConfig = StorageConfig(
-        endpoint="http://49.12.108.67:9000",
-        bucket="cit-fl-demo",
-        access_key_id = "cit-fl-demo",
-        secret_access_key = "Wy8#oS3U#$q7o40%"
+        endpoint="http://localhost:9000",
+        bucket="citfl",
+        access_key_id = "OVbyVD4XnVETNgrpsTMZ",
+        secret_access_key = "RlI0DVx8bXLA3QkPAW680i9MCLcWeVvlZ5osLaw8"
     )
     reader = S3GlobalWeightsReader(storageConfig)
     writer = S3LocalWeightsWriter(storageConfig)
@@ -82,7 +82,7 @@ def main():
     # FedML server connector
     connector = ConnectorGrpc(
         heartbeat_time=1,
-        coordinator_url="49.12.108.67:5051",
+        coordinator_url="127.0.0.1:5051",
         api_token=api_token,
         tsl_certificate=None,
         local_weights_writer=writer,
