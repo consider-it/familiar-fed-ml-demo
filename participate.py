@@ -1,5 +1,6 @@
 # Environment Variables
 import os
+import argparse
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 # Imports
@@ -66,6 +67,13 @@ class MyTrainer(AbstractTrainer):
 
 #### MAIN ####
 def main():
+    # Parse command line arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--coordinator-url', type=str, 
+                        default=os.environ.get('COORDINATOR_URL', '127.0.0.1:5051'),
+                        help='URL of the coordinator service')
+    args = parser.parse_args()
+
     # select any token you want
     api_token = "participant-1"
 
@@ -82,7 +90,7 @@ def main():
     # FedML server connector
     connector = ConnectorGrpc(
         heartbeat_time=1,
-        coordinator_url="127.0.0.1:5051",
+        coordinator_url=args.coordinator_url,
         api_token=api_token,
         tsl_certificate=None,
         local_weights_writer=writer,
