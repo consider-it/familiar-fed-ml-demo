@@ -79,10 +79,10 @@ def main():
 
     # Fedml data storage
     storageConfig = StorageConfig(
-        endpoint="http://localhost:9000",
-        bucket="citfl",
-        access_key_id = "OVbyVD4XnVETNgrpsTMZ",
-        secret_access_key = "RlI0DVx8bXLA3QkPAW680i9MCLcWeVvlZ5osLaw8"
+        endpoint="https://eu2.contabostorage.com/",
+        bucket="cit-research-familiar",
+        access_key_id = "ee87904f94cfc37f14bbf98315fc1748",
+        secret_access_key = "5ccc6d9675726e4fd44c2b78493f81dd"
     )
     reader = S3GlobalWeightsReader(storageConfig)
     writer = S3LocalWeightsWriter(storageConfig)
