@@ -1,14 +1,17 @@
-# familiar-fed-ml-demo
+# Federated Learning Client
 
-## Setup
-Set up your environments and install the [requirements](./requirements.txt)
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
+## Starting the client
+
+To start the client with the default port (5051):
+```
+./start_client.sh
 ```
 
-## Usage
-Use the [participate.py](./participate.py) script to participate on a FedML training process.
-```bash
-python3 participate.py
+To start the client with a custom port:
+```
+./start_client.sh --port 8080
+```
+or
+```
+./start_client.sh -p 8080
 ```
